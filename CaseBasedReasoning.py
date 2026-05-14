@@ -1,3 +1,6 @@
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 import pandas as pd
 
 # Membaca data restoran dari file Excel
@@ -42,22 +45,19 @@ def servis_memuaskan(nilai):
     elif 60 < nilai < 80:
         return (nilai - 60) / 20
 
-    elif 80 <= nilai <= 100:
-        return (nilai - 80) / 20
-
     else:
         return 1
 
 
-#F Fungsi keanggotaan fuzzy untuk variabel harga
+# Fungsi keanggotaan fuzzy untuk variabel harga
 # Harga ekonomis
 def harga_ekonomis(nilai):
 
-    if nilai <= 20000:
+    if nilai <= 25000:
         return 1
 
-    elif 20000 < nilai < 30000:
-        return (30000 - nilai) / 10000
+    elif 25000 < nilai < 30000:
+        return (30000 - nilai) / 5000
 
     else:
         return 0
@@ -132,9 +132,9 @@ for nomor, data in dataset_restoran.iterrows():
 
     rule_fuzzy.append((min(servis_high, harga_mid), 70))
 
-    rule_fuzzy.append((min(servis_high, harga_high), 50))
+    rule_fuzzy.append((min(servis_high, harga_high), 60))
 
-    # Deffuzifikasi m
+    # Deffuzifikasi 
     total_atas = 0
 
     total_bawah = 0
